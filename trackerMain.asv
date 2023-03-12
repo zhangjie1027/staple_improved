@@ -1,9 +1,6 @@
 function [results] = trackerMain(p, im, bg_area, fg_area, area_resize_factor)
     %TRACKERMAIN contains the main loop of the tracker, P contains all the parameters set in runTracker
     %% INITIALIZATION
-    name = "tiny-yolov4-coco";
-    detector = yolov4ObjectDetector(name);
-
     num_frames = numel(p.img_files);
     % used for OTB-13 benchmark
     OTB_rect_positions = zeros(num_frames, 4);
@@ -122,9 +119,8 @@ function [results] = trackerMain(p, im, bg_area, fg_area, area_resize_factor)
             center = (1 + p.norm_delta_area) / 2;
             pos = pos + ([row, col] - center) / area_resize_factor;
 
-            if max_responses(frame) < 0.2
-                [pos, max_responses(frame)] = refine_pos_rf(p, im, pos, max_responses(frame),detector, bg_area, area_resize_factor, hann_window, hf_num, hf_den,bg_hist, fg_hist);
-            end
+            if max_responses(frame) 
+            [pos, max_responses(frame)] = refine_pos_rf(p, img, old_pos, old_max_response,detector, bg_area, area_resize_factor, hann_window, hf_num, hf_den,bg_hist, fg_hist);
 
             rect_position = [pos([2, 1]) - target_sz([2, 1]) / 2, target_sz([2, 1])];
 
@@ -265,19 +261,13 @@ function [results] = trackerMain(p, im, bg_area, fg_area, area_resize_factor)
         figure()
         subplot(3,1,1)
         plot((1:num_frames), apces)
-        hold on
-        plot([0, num_frames], [20,20])
         title("apce")
-        hold off
         subplot(3,1,2)
         plot((1:num_frames), psrs)
         title("psr")
         subplot(3,1,3)
         plot((1:num_frames), max_responses)
-        hold on
-        plot([0, num_frames], [0.25,0.25])
         title("max_responses")
-        hold off
     end
 
 end

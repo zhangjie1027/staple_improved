@@ -3,5 +3,5 @@ function apce = APCE(rsp)
     min_val = min(rsp(:));
     sub_mat = (rsp - min_val).^2;
 %     apce = (max_val - min_val)^2 / (numel(rsp)* sum(sub_mat(:))); 
-apce = (max_val - min_val)^2 / (sum(sub_mat(:)) / numel(rsp)); 
+    apce = (max_val - min_val)^2 / (sum(sub_mat(:)) / numel(rsp)); 
 end

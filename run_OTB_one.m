@@ -28,13 +28,13 @@ params.scale_step = 1.02;
 params.scale_model_max_area = 32 * 16;
 
 %% debugging stuff
-params.visualization = 1; % show output bbox on frame
+params.visualization = 0; % show output bbox on frame
 params.visualization_dbg = 0; % show also per-pixel scores, desired response and filter output
-params.visualization_apce = 1;
+params.visualization_apce = 0;
 
 %% load video info
-video = 'Human6';
-base_path='E:\DataSets\CFTracker\OTB100';
+video = 'Girl2';
+base_path='E:\DataSets\CFTracker\People';
 
 start_frame = 1;
 
